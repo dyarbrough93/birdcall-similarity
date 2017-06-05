@@ -20,8 +20,8 @@
     {"id": "Listolier", "group": 3}
   ],
   "links": [
-    {"source": "Napoleon", "target": "Myriel", "value": 1},
-    {"source": "Mlle.Baptistine", "target": "Myriel", "value": 8},
-    {"source": "Mme.Magloire", "target": "Myriel", "value": 100}
+    {"source": "Napoleon", "target": "Myriel", "value": 0.1},
+    {"source": "Mlle.Baptistine", "target": "Myriel", "value": 0.8},
+    {"source": "Mme.Magloire", "target": "Myriel", "value": 1}
   ]
 }

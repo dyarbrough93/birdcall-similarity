@@ -4,19 +4,31 @@
 <head>
     <meta charset="utf-8">
     <style>
-        .links line {
-            stroke-opacity: 0.6;
-        }
-
         .nodes circle {
-            stroke: #fff;
-            stroke-width: 1.5px;
+            stroke: #ffffff;
+            stroke-width: 1px;
+        }
+        #title {
+            position: absolute;
+            left: 50%;
+            top: 1.2em;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            margin-top: 0.2em;
+        }
+        #title h3, h4 {
+            margin: 0;
+            text-align: center;
         }
     </style>
     <script src="lib/js/d3.v4.min.js"></script>
 </head>
 
 <body>
+    <div id="title">
+        <h3>Birdcall similarity of 60 common birds</h3>
+        <h4>(Click a node to hear)</h4>
+    </div>
     <svg width="960" height="600"></svg>
     <script src="src/js/forceGraph.js"></script>
 </body>
