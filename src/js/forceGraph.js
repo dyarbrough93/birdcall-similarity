@@ -1,5 +1,8 @@
 'use strict'
 
+let audio
+let currAudioFile
+
 let width = window.innerWidth - 20,
 	height = window.innerHeight - 20
 
@@ -49,7 +52,7 @@ d3.json('src/data/birdcalls.json', function(error, graph) {
 		.enter().append('line')
 		.attr('stroke-width', function(d) {
 			let val = 1 - d.value
-			return (val * val * val)// * 0.6
+			return (val * val * val) // * 0.6
 			//return 0.1
 		}).style('stroke', function(d) {
 			return color(1 - d.value, [0, 1])
@@ -93,7 +96,6 @@ d3.json('src/data/birdcalls.json', function(error, graph) {
 		})
 		.on('mouseover', mouseOver)
 		.on('mouseout', mouseOut)
-		.on('mousedown', mouseDown)
 		.attr('cx', function(d) {
 			return d.x
 		})
@@ -113,7 +115,6 @@ d3.json('src/data/birdcalls.json', function(error, graph) {
 		.style('display', 'none')
 		.on('mouseover', mouseOver)
 		.on('mouseout', mouseOut)
-		.on('mousedown', mouseDown)
 		.attr('x', function(d) {
 			return d.x
 		})
@@ -121,19 +122,23 @@ d3.json('src/data/birdcalls.json', function(error, graph) {
 			return d.y
 		})
 
-		function mouseOver(d) {
-			d3.select(document.body).style('cursor', 'pointer')
-			d3.select('.text' + d.id).style('display', 'block')
+	function mouseOver(d) {
+
+		if (d.filename !== currAudioFile) {
+			if (audio) audio.pause()
+			currAudioFile = d.filename
+			audio = new Audio('src/data/birdcall-mp3s/' + d.filename)
+			audio.play()
 		}
 
-		function mouseOut(d) {
-			d3.select(document.body).style('cursor', 'auto')
-			d3.select('.text' + d.id).style('display', 'none')
-		}
+		d3.select(document.body).style('cursor', 'pointer')
+		d3.select('.text' + d.id).style('display', 'block')
+	}
 
-		function mouseDown(d) {
-			window.open('https://www.mbr-pwrc.usgs.gov/id/htmwav/' + d.filename)
-		}
+	function mouseOut(d) {
+		d3.select(document.body).style('cursor', 'auto')
+		d3.select('.text' + d.id).style('display', 'none')
+	}
 
 })
 
