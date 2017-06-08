@@ -3,6 +3,8 @@
 let audio
 let currAudioFile
 
+let audios = {}
+
 let width = window.innerWidth - 20,
 	height = window.innerHeight - 20
 
@@ -34,6 +36,10 @@ function color(val, domain) {
 
 d3.json('src/data/birdcalls.json', function(error, graph) {
 	if (error) throw error
+
+	graph.nodes.forEach(function(node) {
+		audios[node.filename] = new Audio('https://www.mbr-pwrc.usgs.gov/id/htmwav/' + node.filename)
+	})
 
 	simulation
 		.nodes(graph.nodes)
@@ -125,10 +131,9 @@ d3.json('src/data/birdcalls.json', function(error, graph) {
 	function mouseOver(d) {
 
 		if (d.filename !== currAudioFile) {
-			if (audio) audio.pause()
+			if (currAudioFile) audios[currAudioFile].pause()
 			currAudioFile = d.filename
-			audio = new Audio('src/data/birdcall-mp3s/' + d.filename)
-			audio.play()
+			audios[d.filename].play()
 		}
 
 		d3.select(document.body).style('cursor', 'pointer')
